@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Radio Store | Minibot & Computing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism Cards */
+        .glass {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* High-Impact Video Cards */
+        .video-card {
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid #1e293b;
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+            border-color: #14b8a6;
+        }
+
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000000;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="max-w-7xl mx-auto px-6 pt-12 pb-16 border-b border-slate-800/60">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-stretch gap-8">
+    
+    <div class="flex items-center gap-5">
+        <img src="radio_logo.jpg" alt="Mr. Radio Logo" class="w-20 h-20 rounded-full object-cover border border-slate-700 shrink-0">
+        <div>
+            <h1 class="text-4xl font-bold tracking-tight text-white">Mr. Radio Store</h1>
+            <p class="text-teal-400 text-lg mt-1 font-medium">DIY Minibot Prototypes & Computing-Study Cases</p>
+        </div>
+    </div>
+
+    <nav class="bg-slate-900/40 p-5 rounded-xl border border-slate-800/60 backdrop-blur-sm w-full lg:w-auto min-w-[280px] h-full flex flex-col justify-center">
+        <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold block mb-3">
+            Useful Links
+        </span>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
+            <a href="https://github.com/mr-radio-store"
+               target="_blank"
+               rel="noopener"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>🐙 Github</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/mr-radio-281b41410/"
+               target="_blank"
+               rel="noopener"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>💼 LinkedIn</span>
+            </a>
+
+            <a href="https://web.facebook.com/profile.php?id=61558584772563"
+               target="_blank"
+               rel="noopener"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>🔷 facebook</span>
+            </a>
+
+            <a href="https://www.tiktok.com/@mr.radio2026"
+               target="_blank"
+               rel="noopener"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>📱 Tiktok</span>
+            </a>
+
+            <a href="mailto:mr.radio.pi314@gmail.com"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>📩 mr.radio.pi314@gmail.com</span>
+            </a>
+
+            <a href="tel:+855965413718"
+               class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                <span>📞 +855-96-541-3718</span>
+            </a>
+        </div>
+    </nav>
+
+</div>
+
+        <p class="text-slate-400 mt-8 max-w-3xl leading-relaxed text-base">
+            Designing minibot prototypes & computing-study systems; not limited to embedded firmware, AI pipelines, control systems, simulations, industrial monitoring, complex systems, etc.
+        </p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Repositories</div>
+                <div class="text-3xl font-bold mt-1">400+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Active Domains</div>
+                <div class="text-3xl font-bold text-teal-400 mt-1">20+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Self-building Bots & Markets</div>
+                <div class="text-3xl font-bold text-slate-200 mt-1">10,000+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Core Strength</div>
+                <div class="mt-2 text-sm font-medium text-slate-300 leading-snug">Interdisciplinary & Deep Expertise</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Focus</div>
+                <div class="mt-2 text-sm font-medium text-slate-300 leading-snug">Minibot & Computing</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="section-title mb-8">Technical Ecosystem</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Minibot Prototypes</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">ROS2, PID Manipulation, Signal Control, Intelligent Cars, Self-Driving Bots, Drones, Customized Phones, Energy Paradigm, etc.</p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Programming</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">C++ · Python · Java · C · SPARQL · MATLAB · SQL · Javascript </p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Hardware</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Servos, Sensors, MPU6050, Motor Optimization, Magnets, etc.</p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Simulation & Computing</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Complex System, Machine Learning, Multi-Agent, Obj. Tracking, Kalman Filter, SPARQL-built PoC, etc.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="section-title">Project-built Showcase:</h2>
+        <p class="text-slate-400 mt-2 mb-8">
+            Simulation, Multi-Agent, Smart Machine, Engineering-customized Bot, Motor & Control Manipulation, Complex Systems, DIY Mechanics, & More.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="blockchain.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Blockchain-based Security Access Simulation</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="chaos.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Three-Body System with Chaos</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="chatbot.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Multi-Agent Chatbot on Math Thinking</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="drl_visualization.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Object Tracking with Deep Reinforcement Learning</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="lorenz_attractor.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Lorenz Attractor</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="smart-car.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Smart Car</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="random-forest.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Random Forest on Rubik's Cube Color</h3>
+                </div>
+            </div>
+
+             <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="speed_traffic_light.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Motor Speed Estimation with Light Color</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-10 text-center text-slate-500 text-sm">
+            &copy; 2026 Mr. Radio Store
+        </div>
+    </footer >
+
+    <script>
+        function handleVideoPlay(currentVideo) {
+            const allVideos = document.querySelectorAll('.video-card video');
+            allVideos.forEach(video => {
+                if (video !== currentVideo && !video.paused) {
+                    video.pause();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
