@@ -50,13 +50,19 @@
         }
     </style>
 </head>
-<body class="antialiased overflow-hidden" id="main-body">
+<body class="antialiased" id="main-body">
 
-    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md px-4">
-        <div class="glass w-full max-w-md p-8 rounded-2xl shadow-2xl border border-slate-800">
+    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md px-4 hidden">
+        <div class="glass w-full max-w-md p-8 rounded-2xl shadow-2xl border border-slate-800 relative">
+            <button onclick="toggleLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
             <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white tracking-tight">Authentication Requirement</h2>
-                <p class="text-slate-400 text-sm mt-1">Please log in to access Mr. Radio Store's system demo</p>
+                <h2 class="text-2xl font-bold text-white tracking-tight">System Terminal Access</h2>
+                <p class="text-slate-400 text-sm mt-1">Provide credentials to access core system demo</p>
             </div>
             
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
@@ -145,6 +151,14 @@
                         <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                         <span>📞 +855-66-391-193</span>
                     </a>
+
+                    <button onclick="toggleLoginModal()" 
+                            class="text-sm text-teal-400 hover:text-teal-300 font-semibold transition-colors flex items-center gap-2.5 group pt-2 border-t border-slate-800/80 text-left">
+                        <svg class="w-4 h-4 text-teal-500 group-hover:text-teal-400 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                        <span>🔒 Restricted Admin Terminal</span>
+                    </button>
                 </div>
             </nav>
         </div>
@@ -184,8 +198,7 @@
             <div class="glass p-5 rounded-xl">
                 <h3 class="text-teal-400 font-bold mb-2">Minibot Prototypes</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">ROS2, PID Manipulation, Signal Control, Data-driven Mechanics, Engineering-Tailored Phones, 
-                                                                  Self-Learning Bots, Drones, Energy Paradigm, Spatial-Temporal Tracking, Concept-based 
-                                                                  Modeling, etc.</p>
+                                                                  Self-Learning Bots, Drones, Energy Paradigm, Spatial-Temporal Tracking, Concept-based Modeling, etc.</p>
             </div>
             <div class="glass p-5 rounded-xl">
                 <h3 class="text-teal-400 font-bold mb-2">Programming</h3>
@@ -197,8 +210,7 @@
             </div>
             <div class="glass p-5 rounded-xl">
                 <h3 class="text-teal-400 font-bold mb-2">Computing</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Complex System, Data-Driven Pipelines, Multi-Agent, Object Tracking, Simulations, 
-                                                                  Kalman Filter, SPARQL-built PoC, etc.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">Complex System, Data-Driven Pipelines, Multi-Agent, Object Tracking, Simulations, Kalman Filter, SPARQL-built PoC, etc.</p>
             </div>
         </div>
     </section>
@@ -291,10 +303,15 @@
     </footer>
 
     <script>
-    // Track consecutive login failures
     let loginAttempts = 0;
 
-    // LOGIN HANDLER
+    // Toggle Modal View Visibility 
+    function toggleLoginModal() {
+        const modal = document.getElementById('login-modal');
+        modal.classList.toggle('hidden');
+    }
+
+    // LOGIN HANDLER (Now acts as an administrative access workflow)
     function handleLogin(event) {
         event.preventDefault();
         
@@ -302,38 +319,26 @@
         const passInp = document.getElementById('password').value;
         const errMsg = document.getElementById('error-message');
         const modal = document.getElementById('login-modal');
-        const body = document.getElementById('main-body');
         const userStatus = document.getElementById('user-status');
 
-        // Hardcoded check for "labuser" / "labuser"
         if (userInp === 'labuser' && passInp === 'labuser') {
             errMsg.classList.add('hidden');
-            modal.classList.add('hidden'); // Remove the authentication screen
-            body.classList.remove('overflow-hidden'); // Restore scrolling to main page
+            modal.classList.add('hidden'); 
             
-            // Show "Hello, [Username]" on the top right
-            userStatus.textContent = `Hello, ${userInp}`;
+            // Show custom access feedback badge
+            userStatus.textContent = `⚡ Terminal Session Active: ${userInp}`;
             userStatus.classList.remove('hidden');
+            alert('⚙️ System Mode Activated successfully.');
         } else {
             loginAttempts++;
             
             if (loginAttempts >= 3) {
-                // 1. Alert the user first (execution pauses here until they click 'OK')
-                alert('❌ Access Denied: 3 failed attempts. Closing system.');
-                
-                // 2. Redirect to a blank page to clear system contents from view
-                window.location.href = 'about:blank'; 
-                
-                // 3. Attempt to close the window/tab entirely
-                try {
-                    window.close();
-                } catch(e) {
-                    console.log("Browser blocked window.close() - standard behavior for user-opened tabs.");
-                }
+                alert('❌ Security Event: 3 failed attempts. Terminal locked.');
+                modal.classList.add('hidden');
+                loginAttempts = 0; // Reset counter for layout stability
             } else {
                 errMsg.textContent = `❌ Invalid credentials. Attempt ${loginAttempts} of 3.`;
                 errMsg.classList.remove('hidden');
-                // Clear password field on wrong attempt
                 document.getElementById('password').value = '';
             }
         }
