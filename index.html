@@ -197,8 +197,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <div class="glass p-5 rounded-xl">
                 <h3 class="text-teal-400 font-bold mb-2">Minibot Prototypes</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">ROS2, PID Manipulation, Signal Control, Data-driven Mechanics, Engineering-Tailored Phones, 
-                                                                  Self-Learning Bots, Drones, Energy Paradigm, Spatial-Temporal Tracking, Concept-based Modeling, etc.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">ROS2, PID Manipulation, Signal Control, Data-driven Mechanics, Engineering-Tailored Phones, Self-Learning Bots, Drones, Energy Paradigm, Spatial-Temporal Tracking, Concept-based Modeling, etc.</p>
             </div>
             <div class="glass p-5 rounded-xl">
                 <h3 class="text-teal-400 font-bold mb-2">Programming</h3>
@@ -311,7 +310,7 @@
         modal.classList.toggle('hidden');
     }
 
-    // LOGIN HANDLER (Now acts as an administrative access workflow)
+    // LOGIN HANDLER (Now handles localized sub-terminal configuration sessions)
     function handleLogin(event) {
         event.preventDefault();
         
@@ -325,7 +324,7 @@
             errMsg.classList.add('hidden');
             modal.classList.add('hidden'); 
             
-            // Show custom access feedback badge
+            // Show custom access feedback badge on index page layout
             userStatus.textContent = `⚡ Terminal Session Active: ${userInp}`;
             userStatus.classList.remove('hidden');
             alert('⚙️ System Mode Activated successfully.');
@@ -335,7 +334,7 @@
             if (loginAttempts >= 3) {
                 alert('❌ Security Event: 3 failed attempts. Terminal locked.');
                 modal.classList.add('hidden');
-                loginAttempts = 0; // Reset counter for layout stability
+                loginAttempts = 0; // Reset counter securely
             } else {
                 errMsg.textContent = `❌ Invalid credentials. Attempt ${loginAttempts} of 3.`;
                 errMsg.classList.remove('hidden');
