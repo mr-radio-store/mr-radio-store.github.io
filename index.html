@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Radio Store | Minibot & Computing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism Cards */
+        .glass {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* High-Impact Video Cards */
+        .video-card {
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid #1e293b;
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+            border-color: #14b8a6;
+        }
+
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000000;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden" id="main-body">
+
+    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md px-4">
+        <div class="glass w-full max-w-md p-8 rounded-2xl shadow-2xl border border-slate-800">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Authentication Requirement</h2>
+                <p class="text-slate-400 text-sm mt-1">Please log in to access Mr. Radio Store's system demo</p>
+            </div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Username</label>
+                    <input type="text" id="username" required autocomplete="off"
+                           class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all text-sm">
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Password</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-slate-900/60 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all text-sm">
+                </div>
+
+                <div id="error-message" class="text-sm text-rose-400 font-medium hidden text-center pt-1">
+                    ❌ Invalid credentials. Please try again!
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold py-2.5 rounded-lg transition-colors mt-2 text-sm tracking-wide shadow-lg shadow-teal-500/20">
+                    Access Terminal
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <header class="max-w-7xl mx-auto px-6 pt-12 pb-16 border-b border-slate-800/60 relative">
+        <div id="user-status" class="absolute top-4 right-6 text-sm font-semibold text-teal-400 bg-slate-900/80 px-4 py-1.5 rounded-full border border-teal-500/35 hidden"></div>
+
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+            
+            <div class="flex items-center gap-5">
+                <img src="./image/radio_logo.jpg" alt="Mr. Radio Logo" class="w-20 h-20 rounded-full object-cover border border-slate-700 shrink-0">
+                <div>
+                    <h1 class="text-4xl font-bold tracking-tight text-white">Mr. Radio Store</h1>
+                    <p class="text-teal-400 text-lg mt-1 font-medium">Minibot Prototypes & Industrial Computing</p>
+                </div>
+            </div>
+
+            <nav class="bg-slate-900/40 p-5 rounded-xl border border-slate-800/60 backdrop-blur-sm w-full lg:w-auto min-w-[280px]">
+                <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold block mb-3">
+                    Main Connections:
+                </span>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
+                    <a href="https://github.com/mr-radio-store"
+                       target="_blank"
+                       rel="noopener"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <span>🐙 GitHub</span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/mr-radio-281b41410/"
+                       target="_blank"
+                       rel="noopener"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        <span>💼 LinkedIn</span>
+                    </a>
+
+                    <a href="https://web.facebook.com/profile.php?id=61558584772563"
+                       target="_blank"
+                       rel="noopener"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <span>🔷 Facebook</span>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@mr.radio2026"
+                       target="_blank"
+                       rel="noopener"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                        <span>📱 TikTok</span>
+                    </a>
+
+                    <a href="mailto:mr.radio.pi314@gmail.com"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        <span>📩 mr.radio.pi314@gmail.com</span>
+                    </a>
+
+                    <a href="tel:+85566391193"
+                       class="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2.5 group">
+                        <svg class="w-4 h-4 text-slate-400 group-hover:text-teal-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <span>📞 +855-66-391-193</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <p class="text-slate-400 mt-8 max-w-3xl leading-relaxed text-base">
+            Designing minibot prototypes & computing systems; not limited to embedded firmwares, autonomous tracking, control systems, simulations, empirical replica, complex systems, etc.
+        </p>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Repositories & DIY-Market Engineering</div>
+                <div class="text-3xl font-bold mt-1">600+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Active Domains</div>
+                <div class="text-3xl font-bold mt-1">100+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Self-Building & Customized Bots</div>
+                <div class="text-3xl font-bold text-slate-200 mt-1">10,000+</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Core Strength</div>
+                <div class="mt-2 text-sm font-medium text-slate-300 leading-snug">Interdisciplinary & Deep Expertise in Computing</div>
+            </div>
+            <div class="glass rounded-xl p-5">
+                <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Focus</div>
+                <div class="mt-2 text-sm font-medium text-slate-300 leading-snug">Minibot & Computing</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="section-title mb-8">Technical Ecosystem</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Minibot Prototypes</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">ROS2, PID Manipulation, Signal Control, Data-driven Mechanics, Engineering-Tailored Phones, 
+                                                                  Self-Learning Bots, Drones, Energy Paradigm, Spatial-Temporal Tracking, Concept-based 
+                                                                  Modeling, etc.</p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Programming</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">C++ · Python · Java · C · SPARQL · MATLAB · SQL · Javascript · Rust</p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Hardware Engineering</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">High-Torque Servo Control, Sensor Integration, MPU6050-Balancing Regulator, Motor Optimization, Magnets, etc.</p>
+            </div>
+            <div class="glass p-5 rounded-xl">
+                <h3 class="text-teal-400 font-bold mb-2">Computing</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Complex System, Data-Driven Pipelines, Multi-Agent, Object Tracking, Simulations, Kalman Filter, SPARQL-built PoC, etc.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="section-title">Project-built Showcase:</h2>
+        <p class="text-slate-400 mt-2 mb-8">
+            Simulations, Multi-Agent Reasoning, Smart Machines, Engineering-customized Bots, Motor & Control Manipulation, Complex Systems, DIY Mechanics, & More.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/blockchain.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Blockchain-based Security Access Simulation</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/chaos.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Three-Body System with Chaos</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/chatbot.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Multi-Agent Chatbot on Math Thinking</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/drl_visualization.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Object Tracking with Deep Reinforcement Learning</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/lorenz_attractor.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Lorenz Attractor Observation</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/smart-car.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">DIY Self-Learning Car</h3>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/random-forest.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Random Forest on Rubik's Cube Color</h3>
+                </div>
+            </div>
+
+             <div class="video-card">
+                <video controls preload="metadata" playsinline muted onplay="handleVideoPlay(this)">
+                    <source src="./video/speed_traffic_light.mp4" type="video/mp4">
+                </video>
+                <div class="p-5">
+                    <h3 class="font-semibold text-lg text-slate-100">Motor Speed Estimation with Light Color</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-10 text-center text-slate-500 text-sm">
+            &copy; 2026 Mr. Radio Store | Minibot & Computing
+        </div>
+    </footer>
+
+    <script>
+    // Track consecutive login failures
+    let loginAttempts = 0;
+
+    // LOGIN HANDLER
+    function handleLogin(event) {
+        event.preventDefault();
+        
+        const userInp = document.getElementById('username').value;
+        const passInp = document.getElementById('password').value;
+        const errMsg = document.getElementById('error-message');
+        const modal = document.getElementById('login-modal');
+        const body = document.getElementById('main-body');
+        const userStatus = document.getElementById('user-status');
+
+        // Hardcoded check for "labuser" / "labuser"
+        if (userInp === 'labuser' && passInp === 'labuser') {
+            errMsg.classList.add('hidden');
+            modal.classList.add('hidden'); // Remove the authentication screen
+            body.classList.remove('overflow-hidden'); // Restore scrolling to main page
+            
+            // Show "Hello, [Username]" on the top right
+            userStatus.textContent = `Hello, ${userInp}`;
+            userStatus.classList.remove('hidden');
+        } else {
+            loginAttempts++;
+            
+            if (loginAttempts >= 3) {
+                // 1. Alert the user first (execution pauses here until they click 'OK')
+                alert('❌ Access Denied: 3 failed attempts. Closing system.');
+                
+                // 2. Redirect to a blank page to clear system contents from view
+                window.location.href = 'about:blank'; 
+                
+                // 3. Attempt to close the window/tab entirely
+                try {
+                    window.close();
+                } catch(e) {
+                    console.log("Browser blocked window.close() - standard behavior for user-opened tabs.");
+                }
+            } else {
+                errMsg.textContent = `❌ Invalid credentials. Attempt ${loginAttempts} of 3.`;
+                errMsg.classList.remove('hidden');
+                // Clear password field on wrong attempt
+                document.getElementById('password').value = '';
+            }
+        }
+    }
+
+    // VIDEO CONFIGURATION
+    function handleVideoPlay(currentVideo) {
+        const allVideos = document.querySelectorAll('.video-card video');
+        allVideos.forEach(video => {
+            if (video !== currentVideo && !video.paused) {
+                video.pause();
+            }
+        });
+    }
+</script>
+</body>
+</html>
